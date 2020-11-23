@@ -4,8 +4,8 @@ function helperServices($location) {
     var service = { IsBusy: false, absUrl: $location.$$absUrl };
     service.url = $location.$$protocol + '://' + $location.$$host;
     if ($location.$$port) {
-        service.url = service.url + ':' + $location.$$port;
-        // service.url = service.url + ':' + $location.$$port + '/musrembang';
+        // service.url = service.url + ':' + $location.$$port;
+        service.url = service.url + ':' + $location.$$port + '/wajibpajak';
     }
 
     // '    http://localhost:5000';
@@ -23,6 +23,10 @@ function helperServices($location) {
         });
         return map;
     };
+    service.getParam = () => {
+        id = $location.$$absUrl.split('/');
+        return id[id.length - 1];
+    }
     service.romanize = (num) => {
         if (isNaN(num))
             return NaN;
@@ -36,5 +40,7 @@ function helperServices($location) {
             roman = (key[+digits.pop() + (i * 10)] || "") + roman;
         return Array(+digits.join("") + 1).join("M") + roman;
     }
+    service.roles = { id: 1, role: 'Admin' };
+    service.sex = ['Pria', 'Wanita'];
     return service;
 }

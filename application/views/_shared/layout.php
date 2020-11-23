@@ -1,248 +1,273 @@
-<!doctype html>
-<!--
-* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
-* @version 1.0.0-alpha.12
-* @link https://tabler.io
-* Copyright 2018-2020 The Tabler Authors
-* Copyright 2018-2020 codecalm.net Paweł Kuna
-* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
--->
-<html lang="en" ng-app="apps" ng-controller="pageController">
+<!DOCTYPE html>
+<html ng-app="apps" ng-controller="indexController">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
-  <link rel="shortcut icon" href="<?=base_url()?>favicon.ico" type="image/x-icon">
-  <link rel="icon" href="<?=base_url()?>favicon.ico" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <meta name="msapplication-TileColor" content="#206bc4" />
-  <meta name="theme-color" content="#206bc4" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="MobileOptimized" content="320" />
-  <meta name="robots" content="noindex,nofollow,noarchive" />
-  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-  <!-- CSS files -->
-  <link href="<?=base_url()?>public/libs/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-  <link href="<?=base_url()?>public/css/tabler.min.css" rel="stylesheet" />
-  <link href="<?=base_url()?>public/css/tabler-flags.min.css" rel="stylesheet" />
-  <link href="<?=base_url()?>public/css/tabler-payments.min.css" rel="stylesheet" />
-  <link href="<?=base_url()?>public/css/demo.min.css" rel="stylesheet" />
-  <style>
-    body {
-      display: none;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{titleHeader}}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+
+  <link rel="stylesheet" href="<?=base_url()?>public/plugins/sweetalert2/sweetalert2.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?=base_url()?>public/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="antialiased">
-  <div class="page">
-    <?php
-$this->load->view('_shared/header');
-?>
-    <div class="content">
-      <div class="container-xl">
-        <!-- Page title -->
-        <div class="page-header d-print-none">
-          <div class="row align-items-center">
-            <div class="col">
-              <!-- Page pre-title -->
-              <div class="page-pretitle">
-                Overview
-              </div>
-              <h2 class="page-title">
-                Condensed layout
-              </h2>
-            </div>
-            <!-- Page title actions -->
-            <div class="col-auto ml-auto d-print-none">
-              <div class="btn-list">
-                <span class="d-none d-sm-inline">
-                  <a href="#" class="btn btn-white">
-                    New view
-                  </a>
-                </span>
-                <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-toggle="modal"
-                  data-target="#modal-report">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" /></svg>
-                  Create new report
-                </a>
-                <a href="#" class="btn btn-primary d-sm-none btn-icon" data-toggle="modal" data-target="#modal-report"
-                  aria-label="Create new report">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" /></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row row-cards">
-          <div class="col-12">
-            <?=$content?>
-          </div>
-        </div>
-      </div>
-      <footer class="footer footer-transparent d-print-none">
-        <div class="container">
-          <div class="row text-center align-items-center flex-row-reverse">
-            <div class="col-lg-auto ml-lg-auto">
-              <ul class="list-inline list-inline-dots mb-0">
-                <li class="list-inline-item"><a href="./docs/index.html" class="link-secondary">Documentation</a></li>
-                <li class="list-inline-item"><a href="./faq.html" class="link-secondary">FAQ</a></li>
-                <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank"
-                    class="link-secondary">Source code</a></li>
-              </ul>
-            </div>
-            <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-              <ul class="list-inline list-inline-dots mb-0">
-                <li class="list-inline-item">
-                  Copyright © 2020
-                  <a href="." class="link-secondary">Tabler</a>.
-                  All rights reserved.
-                </li>
-                <li class="list-inline-item">
-                  <a href="./changelog.html" class="link-secondary">v1.0.0-alpha.12</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-  <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">New report</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
-          </div>
-          <label class="form-label">Report type</label>
-          <div class="form-selectgroup-boxes row mb-3">
-            <div class="col-lg-6">
-              <label class="form-selectgroup-item">
-                <input type="radio" name="report-type" value="1" class="form-selectgroup-input" checked>
-                <span class="form-selectgroup-label d-flex align-items-center p-3">
-                  <span class="mr-3">
-                    <span class="form-selectgroup-check"></span>
-                  </span>
-                  <span class="form-selectgroup-label-content">
-                    <span class="form-selectgroup-title strong mb-1">Simple</span>
-                    <span class="d-block text-muted">Provide only basic data needed for the report</span>
-                  </span>
-                </span>
-              </label>
-            </div>
-            <div class="col-lg-6">
-              <label class="form-selectgroup-item">
-                <input type="radio" name="report-type" value="1" class="form-selectgroup-input">
-                <span class="form-selectgroup-label d-flex align-items-center p-3">
-                  <span class="mr-3">
-                    <span class="form-selectgroup-check"></span>
-                  </span>
-                  <span class="form-selectgroup-label-content">
-                    <span class="form-selectgroup-title strong mb-1">Advanced</span>
-                    <span class="d-block text-muted">Insert charts and additional advanced analyses to be inserted in
-                      the report</span>
-                  </span>
-                </span>
-              </label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="mb-3">
-                <label class="form-label">Report url</label>
-                <div class="input-group input-group-flat">
-                  <span class="input-group-text">
-                    https://tabler.io/reports/
-                  </span>
-                  <input type="text" class="form-control pl-0" value="report-01">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="mb-3">
-                <label class="form-label">Visibility</label>
-                <select class="form-select">
-                  <option value="1" selected>Private</option>
-                  <option value="2">Public</option>
-                  <option value="3">Hidden</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="mb-3">
-                <label class="form-label">Client name</label>
-                <input type="text" class="form-control">
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="mb-3">
-                <label class="form-label">Reporting period</label>
-                <input type="date" class="form-control">
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div>
-                <label class="form-label">Additional information</label>
-                <textarea class="form-control" rows="3"></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <a href="#" class="btn btn-link link-secondary" data-dismiss="modal">
-            Cancel
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            LOGOUT
           </a>
-          <a href="#" class="btn btn-primary ml-auto" data-dismiss="modal">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-              stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" /></svg>
-            Create new report
-          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="<?=base_url()?>public/index3.html" class="brand-link">
+        <img src="<?=base_url()?>public/img/logo.png" alt="AdminLTE Logo" class="brand-image elevation-3"
+          style="opacity: .8">
+        <span class="brand-text font-weight-light">Wajib Pajak</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="<?=base_url()?>favicon.ico" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block">Admin</a>
+          </div>
         </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a href="<?=base_url('home')?>" ng-class="{'nav-link active': header=='Home', 'nav-link': header!='Home'}">
+                <i class="nav-icon fas fa-home"></i>
+                <p>
+                  Home
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?=base_url('petugas')?>" ng-class="{'nav-link active': header=='Petugas', 'nav-link': header!='Petugas'}">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Petugas
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?=base_url('wajibpajak')?>" ng-class="{'nav-link active': header=='Wajib Pajak', 'nav-link': header!='Wajib Pajak'}">
+                <i class="nav-icon fas fa-address-card"></i>
+                <p>
+                  Wajib Pajak
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?=base_url('wajibpajak')?>" ng-class="{'nav-link active': header=='Laporan', 'nav-link': header!='Laporan'}">
+                <i class="nav-icon fas fa-file"></i>
+                <p>
+                  Laporan
+                </p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
       </div>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>{{header}}</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="<?=base_url('home')?>">Home</a></li>
+                <li class="breadcrumb-item active">{{breadcrumb}}</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="container-fluid">
+          <?=$content?>
+        </div>
+      </section>
     </div>
+
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block">
+        <b>Sistem Informasi pendataan Wajib Pajak</b>
+      </div>
+      <strong>Copyright &copy; 2020
+    </footer>
+
+    <!-- Control Sidebar -->
+    <!-- <aside class="control-sidebar control-sidebar-dark">
+    </aside> -->
+    <!-- /.control-sidebar -->
   </div>
-  <!-- Libs JS -->
-  <script src="<?=base_url()?>public/libs/angular/angular.min.js"></script>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="<?=base_url()?>public/plugins/jquery/jquery.min.js"></script>
+  <script src="<?=base_url()?>public/plugins/angular/angular.min.js"></script>
+
   <script src="<?=base_url()?>public/js/apps.js"></script>
   <script src="<?=base_url()?>public/js/services/helper.services.js"></script>
+  <script src="<?=base_url()?>public/js/services/auth.services.js"></script>
+  <!-- <script src="<?=base_url()?>public/js/services/storage.services.js"></script> -->
+  <script src="<?=base_url()?>public/js/services/services.js"></script>
   <script src="<?=base_url()?>public/js/controllers/admin.controllers.js"></script>
-  <script src="<?=base_url()?>public/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="<?=base_url()?>public/libs/jquery/dist/jquery.slim.min.js"></script>
-  <script src="<?=base_url()?>public/libs/apexcharts/dist/apexcharts.min.js"></script>
-  <script src="<?=base_url()?>public/libs/jqvmap/dist/jquery.vmap.min.js"></script>
-  <script src="<?=base_url()?>public/libs/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-  <script src="<?=base_url()?>public/libs/peity/jquery.peity.min.js"></script>
-  <!-- Tabler Core -->
-  <script src="<?=base_url()?>public/js/tabler.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="<?=base_url()?>public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Select2 -->
+  <script src="<?=base_url()?>public/plugins/select2/js/select2.full.min.js"></script>
+  <!-- Bootstrap4 Duallistbox -->
+  <script src="<?=base_url()?>public/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+  <!-- InputMask -->
+  <script src="<?=base_url()?>public/plugins/moment/moment.min.js"></script>
+  <script src="<?=base_url()?>public/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+  <!-- date-range-picker -->
+  <script src="<?=base_url()?>public/plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- bootstrap color picker -->
+  <script src="<?=base_url()?>public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="<?=base_url()?>public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Bootstrap Switch -->
+  <script src="<?=base_url()?>public/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+  <script src="<?=base_url()?>public/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?=base_url()?>public/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="<?=base_url()?>public/dist/js/demo.js"></script>
+  <script src="<?=base_url();?>public/js/googleMap.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByGhiEjG2rcKsVqYXwJOtUugy0BS55_lo&libraries=geometry,places"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <!-- Page script -->
   <script>
-    document.body.style.display = "block"
+    $(function () {
+      //Initialize Select2 Elements
+      $('.select2').select2({
+        placeholder: '--- Pilih Item ---'
+      });
+
+      //Initialize Select2 Elements
+      $('.select2bs4').select2({
+        theme: 'bootstrap4'
+      })
+
+      //Datemask dd/mm/yyyy
+      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+      //Datemask2 mm/dd/yyyy
+      $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+      //Money Euro
+      $('[data-mask]').inputmask()
+
+      //Date range picker
+      $('#reservationdate').datetimepicker({
+        format: 'L'
+      });
+      //Date range picker
+      $('#reservation').daterangepicker()
+      //Date range picker with time picker
+      $('#reservationtime').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+          format: 'MM/DD/YYYY hh:mm A'
+        }
+      })
+      //Date range as a button
+      $('#daterange-btn').daterangepicker(
+        {
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment()
+        },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+        }
+      )
+
+      //Timepicker
+      $('#timepicker').datetimepicker({
+        format: 'LT'
+      })
+
+      //Bootstrap Duallistbox
+      $('.duallistbox').bootstrapDualListbox()
+
+      //Colorpicker
+      $('.my-colorpicker1').colorpicker()
+      //color picker with addon
+      $('.my-colorpicker2').colorpicker()
+
+      $('.my-colorpicker2').on('colorpickerChange', function (event) {
+        $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+      });
+
+      $("input[data-bootstrap-switch]").each(function () {
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+      });
+
+    })
   </script>
 </body>
 
