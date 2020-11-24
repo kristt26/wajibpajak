@@ -20,10 +20,12 @@ class auth extends CI_Controller
     {
         $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
         $result = $this->User_model->select($data);
-        if ($result != false) {
+        if (count($result) > 0) {
             $result['is_login'] = true;
             $this->session->set_userdata($result);
             echo json_encode($result);
+        } else {
+            echo json_encode([]);
         }
     }
 

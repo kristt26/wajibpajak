@@ -71,6 +71,12 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group row">
+                                <label for="namausaha" class="col-sm-2 col-form-label col-form-label-sm">Nama</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="namausaha" ng-model="model.usaha.nama" placeholder="Nama Usaha">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="lat" class="col-sm-2 col-form-label col-form-label-sm">Lat</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control form-control-sm" id="lat" ng-model="model.usaha.lat" placeholder="Latitude" disabled>
@@ -141,7 +147,7 @@
     #map-panel>#map {
         width: 100%;
         background-color: red;
-        min-height: 700px;
+        min-height: 500px;
         height: 100%;
     }
 

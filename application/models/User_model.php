@@ -7,8 +7,19 @@ class User_model extends CI_Model
 
     public function select($data)
     {
-        $data['password'] = md5($data['password']);
-        return $this->db->get_where('user', $data);
+        $password = md5($data['password']);
+        $username = $data['username'];
+        return $this->db->query("SELECT
+            `user`.*,
+            `petugas`.`id` AS `petugasid`,
+            `petugas`.`nip`,
+            `petugas`.`nama`,
+            `petugas`.`alamat`,
+            `petugas`.`kontak`,
+            `petugas`.`email`
+        FROM
+            `user`
+            LEFT JOIN `petugas` ON `user`.`id` = `petugas`.`userid` WHERE user.username='$username' and user.password='$password'")->row_array();
     }
     public function insert($data)
     {

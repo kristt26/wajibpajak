@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="<?=base_url()?>public/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
 
   <link rel="stylesheet" href="<?=base_url()?>public/plugins/sweetalert2/sweetalert2.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=base_url()?>public/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -34,6 +35,11 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
+  <?php
+if (!$this->session->userdata('is_login')) {
+    redirect('auth');
+}
+?>
   <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -93,6 +99,14 @@
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Petugas
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?=base_url('kategori')?>" ng-class="{'nav-link active': header=='Jenis Usaha', 'nav-link': header!='Jenis Usaha'}">
+                <i class="nav-icon fas fa-registered"></i>
+                <p>
+                  Jenis Usaha
                 </p>
               </a>
             </li>
@@ -193,8 +207,14 @@
   <script src="<?=base_url();?>public/js/googleMap.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByGhiEjG2rcKsVqYXwJOtUugy0BS55_lo&libraries=geometry,places"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script src="<?=base_url()?>public/plugins/loading/dist/loadingoverlay.min.js"></script>
   <!-- Page script -->
   <script>
+    $.LoadingOverlay("show", {
+      background : "rgba(0, 0, 0, 0.9)",
+			image : "<?php echo base_url('public/img/preloader.gif'); ?>",
+			imageAnimation: 'none'
+    });
     $(function () {
       //Initialize Select2 Elements
       $('.select2').select2({

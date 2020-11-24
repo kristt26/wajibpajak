@@ -30,7 +30,7 @@ function AuthService($http, $q, helperServices) {
         var b = getHeader();
         $http({
             method: 'POST',
-            url: helperServices.url + "auth/login",
+            url: helperServices.url + "/auth/login",
             data: user,
             headers: {
                 'Content-Type': 'application/json'

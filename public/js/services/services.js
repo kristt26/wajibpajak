@@ -259,7 +259,7 @@ function WajibPajakServices($http, $q, helperServices, AuthService) {
         var def = $q.defer();
         $http({
             method: 'put',
-            url: helperServices.url + 'update',
+            url: controller + 'update',
             data: param,
             headers: AuthService.getHeader()
         }).then(
@@ -347,7 +347,11 @@ function KategoriServices($http, $q, helperServices, AuthService) {
             },
             (err) => {
                 def.reject(err);
-                message.error(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Information Error',
+                    text: err.data
+                })
             }
         );
         return def.promise;
@@ -357,23 +361,24 @@ function KategoriServices($http, $q, helperServices, AuthService) {
         var def = $q.defer();
         $http({
             method: 'put',
-            url: helperServices.url + 'update',
+            url: controller + 'update',
             data: param,
             headers: AuthService.getHeader()
         }).then(
             (res) => {
                 var data = service.data.find(x => x.id == param.id);
                 if (data) {
-                    data.firstName = param.firstName;
-                    data.lastName = param.lastName;
-                    data.userName = param.userName;
-                    data.email = param.email;
+                    data.kategori = param.kategori;
                 }
                 def.resolve(res.data);
             },
             (err) => {
                 def.reject(err);
-                message.error(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Information Error',
+                    text: err.data
+                })
             }
         );
         return def.promise;

@@ -17,6 +17,7 @@ class Wajibpajak_model extends CI_Model
         } else {
             $data = $this->db->get_where('wajibpajak', ['id' => $id])->row_array();
             $data['usaha'] = $this->db->get_where('usaha', ['wajibpajakid' => $data['id']])->row_array();
+            $data['usaha']['kategori'] = $this->db->get_where('kategori', ['id' => $data['usaha']['kategoriid']])->row_array();
             return $data;
         }
     }
@@ -31,11 +32,12 @@ class Wajibpajak_model extends CI_Model
             'alamat' => $data['alamat'],
             'kontak' => $data['kontak'],
             'email' => $data['email'],
-            'petugasid' => $this->session->userdata('id'),
+            'petugasid' => $this->session->userdata('petugasid'),
         ];
         $this->db->insert('wajibpajak', $itemWajibPajak);
         $data['id'] = $this->db->insert_id();
         $itemusaha = [
+            'nama' => $data['usaha']['nama'],
             'alamat' => $data['usaha']['alamat'],
             'lat' => $data['usaha']['lat'],
             'long' => $data['usaha']['long'],
@@ -45,9 +47,11 @@ class Wajibpajak_model extends CI_Model
         ];
         $this->db->insert('usaha', $itemusaha);
         $data['usaha']['id'] = $this->db->insert_id();
-        if ($result) {
+        if ($this->db->trans_status()) {
+            $this->db->trans_commit();
             return $data;
         } else {
+            $this->db->trans_rollback();
             return false;
         }
 
@@ -56,6 +60,7 @@ class Wajibpajak_model extends CI_Model
     {
         $this->db->trans_begin();
         $itemusaha = [
+            'nama' => $data['usaha']['nama'],
             'alamat' => $data['usaha']['alamat'],
             'lat' => $data['usaha']['lat'],
             'long' => $data['usaha']['long'],
@@ -64,7 +69,7 @@ class Wajibpajak_model extends CI_Model
             'status' => 'true',
         ];
         $this->db->where('id', $data['usaha']['id']);
-        $this->db->update('usaha', $item);
+        $this->db->update('usaha', $itemusaha);
         $itemWajibPajak = [
             'nik' => $data['nik'],
             'nama' => $data['nama'],
@@ -73,7 +78,7 @@ class Wajibpajak_model extends CI_Model
             'alamat' => $data['alamat'],
             'kontak' => $data['kontak'],
             'email' => $data['email'],
-            'petugasid' => $this->session->userdata('id'),
+            'petugasid' => $this->session->userdata('petugasid'),
         ];
         $this->db->where('id', $data['id']);
         $this->db->update('wajibpajak', $itemWajibPajak);

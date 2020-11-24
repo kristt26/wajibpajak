@@ -1,6 +1,6 @@
 @controller=http://localhost/wajibpajak/wajibpajak
 
-GET {{controller}}/get HTTP/1.1
+GET {{controller}}/get/1 HTTP/1.1
 Content-Type: application/json
 
 ###

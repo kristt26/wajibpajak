@@ -15,7 +15,7 @@ class kategori extends CI_Controller
     public function index()
     {
         $data['content'] = $this->load->view('kategori/index', '', true);
-        $this->load->view('_sharedadmin/layout', $data);
+        $this->load->view('_shared/layout', $data);
     }
 
     public function get($id = null)
