@@ -42,5 +42,6 @@ function helperServices($location) {
     }
     service.roles = { id: 1, role: 'Admin' };
     service.sex = ['Pria', 'Wanita'];
+    service.marker = ['Blue', 'Green', 'Orange', 'Pink', 'Purple', 'Red', 'Yellow'];
     return service;
 }

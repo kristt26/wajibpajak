@@ -91,7 +91,7 @@
                             <div class="form-group row">
                                 <label for="kategori" class="col-sm-2 col-form-label col-form-label-sm">Kategori Usaha</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control select2 form-control-sm" id="kategori" ng-options="item as item.kategori for item in kategoris" ng-model="model.usaha.kategori" ng-change="model.usaha.kategoriid=model.usaha.kategori.id">
+                                    <select class="form-control select3 form-control-sm" id="kategori" ng-options="item as item.kategori for item in kategoris" ng-model="model.usaha.kategori" ng-change="model.usaha.kategoriid=model.usaha.kategori.id">
                                         <option value=""></option>
                                     </select>
                                 </div>

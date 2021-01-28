@@ -8,6 +8,7 @@ angular.module('apps', [
         $scope.titleHeader = "SI Wajib Pajak";
         $scope.header = "";
         $scope.breadcrumb = "";
+        
 
         $scope.$on("SendUp", function (evt, data) {
             $scope.header = data.title;

@@ -15,9 +15,18 @@
 
           </div>
           <div class="form-group row">
-            <label for="nip"  class="col-md-3 col-form-label col-form-label-sm">Marker Color</label>
+            <label for="marker" class="col-md-3 col-form-label col-form-label-sm">Marker Color</label>
             <div class="col-md-9">
-                <input type="text" class="form-control  form-control-sm" id="nip" ng-model="model.marker" placeholder="Warna Marker">
+                <select class="form-control  form-control-sm marker" id="marker" ng-model="model.marker">
+                  <option value=""></option>
+                  <option value="blue">Blue</option>
+                  <option value="green">Green</option>
+                  <option value="orange">Orange</option>
+                  <option value="pink">Pink</option>
+                  <option value="purple">Purple</option>
+                  <option value="red">Red</option>
+                  <option value="yellow">Yellow</option>
+                </select>
             </div>
 
           </div>
@@ -41,6 +50,7 @@
             <tr>
               <th>No</th>
               <th>Kategori</th>
+              <th>Marker</th>
               <th><i class="fas fa-cog"></i></th>
             </tr>
           </thead>
@@ -48,6 +58,7 @@
             <tr ng-repeat="item in datas">
               <td>{{$index+1}}</td>
               <td>{{item.kategori}}</td>
+              <td><img ng-src="<?=base_url('public/img/marker/')?>{{item.marker | lowercase}}.png" alt=""></td>
               <td>
                 <button type="button" class="btn btn-warning btn-sm" ng-click ="edit(item)"><i class="fas fa-edit"></i></button>
               </td>

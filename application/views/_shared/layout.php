@@ -216,9 +216,23 @@ if (!$this->session->userdata('is_login')) {
 			imageAnimation: 'none'
     });
     $(function () {
+      function formatState (state) {
+        if (!state.id) {
+            return state.text;
+        }
+        var baseUrl = "<?=base_url()?>/public/img/marker/";
+        var $state = $(
+            '<span><img src="' + baseUrl + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+        );
+        return $state;
+      };
       //Initialize Select2 Elements
-      $('.select2').select2({
-        placeholder: '--- Pilih Item ---'
+      $('.marker').select2({
+        placeholder: '--- Pilih Item ---',
+        templateResult: formatState
+      });
+      $('.select3').select2({
+        placeholder: '--- Pilih Item ---',
       });
 
       //Initialize Select2 Elements

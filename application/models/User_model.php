@@ -4,6 +4,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model
 {
+    public function check()
+    {
+        $data = $this->db->get("user")->result();
+        if(count($data)==0){
+            $role = ['Admin', 'Petugas'];
+            $this->db->trans_begin();
+            $idrole;
+            foreach ($role as $key => $value) {
+                $this->db->insert('role', ['role'=>$value]);
+                $idrole = $this->db->insert_id();
+                if($key==0)
+                    $roleid =  $idrole;
+            }
+            $this->db->insert('user', ['username'=>'admin@mail.com', 'password'=> md5('admin')]);
+            $iduser = $this->db->insert_id();
+            $this->db->insert('userrole', ['roleid'=>$idrole, 'userid'=> $iduser]);
+            if($this->db->trans_status()){
+                $this->db->trans_commit();
+            }else{
+                $this->db->trans_rollback();
+            }
+        }
+    }
 
     public function select($data)
     {

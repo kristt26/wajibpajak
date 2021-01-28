@@ -15,12 +15,12 @@ function homeController($scope) {
 function loginController($scope, AuthService, helperServices) {
     $scope.model = {};
 
-    $scope.login=()=>{
+    $scope.login = () => {
         AuthService.login($scope.model).then(x => {
-            if(x.id){
+            if (x.id) {
                 location.href = helperServices.url + "/home";
             }
-            else{
+            else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Information',
@@ -50,14 +50,31 @@ function petugasController($scope, helperServices, PetugasServices) {
         $scope.simpan = false;
     }
     $scope.save = () => {
+        $.LoadingOverlay("show");
         $scope.model.roles = helperServices.roles;
         if ($scope.model.id) {
             PetugasServices.put($scope.model).then(result => {
-
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Information',
+                    text: "Proses Berhasil",
+                    allowOutsideClick: false
+                })
+                $scope.model = {};
+                $scope.simpan = true;
+                $.LoadingOverlay("hide");
             })
         } else {
             PetugasServices.post($scope.model).then(result => {
-
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Information',
+                    text: "Proses Berhasil",
+                    allowOutsideClick: false
+                })
+                $scope.model = {};
+                $scope.simpan = true;
+                $.LoadingOverlay("hide");
             })
         }
     }
@@ -92,7 +109,7 @@ function wajibPajakController($scope, helperServices, WajibPajakServices) {
         }
     }
     $scope.showMap = (item) => {
-        
+
         var pos = { lat: parseFloat(item.usaha.lat), lng: parseFloat(item.usaha.long) };
         const contentString =
             '<div id="content">' +
@@ -102,10 +119,10 @@ function wajibPajakController($scope, helperServices, WajibPajakServices) {
             '<div class="col-md-12">' +
             "<p>Pemilik: " + item.nama + "</p></br>" +
             "<p>NIK: " + item.nik + "</p></br>" +
-            "<p>No Wajib Pajak: " + item.nowajibpajak + "</p></br>" + 
-            "<p>Telepon: " + item.kontak + "</p></br>" + 
-            "<p>Email: " + item.email + "</p></br>" + 
-            "<p>Alamat Usaha" + item.usaha.alamat + "</p></br>" + 
+            "<p>No Wajib Pajak: " + item.nowajibpajak + "</p></br>" +
+            "<p>Telepon: " + item.kontak + "</p></br>" +
+            "<p>Email: " + item.email + "</p></br>" +
+            "<p>Alamat Usaha" + item.usaha.alamat + "</p></br>" +
             "</div>" +
             "</div>";
         googleMap = new GoogleMap(15, pos);
@@ -147,7 +164,7 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
         WajibPajakServices.getDetail(helperServices.getParam()).then(x => {
             $scope.model = x;
             console.log(x);
-                       
+
         })
     }
     $scope.edit = (item) => {
@@ -182,7 +199,7 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
         googleMap.showdata = $scope.show;
         KategoriServices.get().then(x => {
             $scope.kategoris = x;
-            $.LoadingOverlay("hide"); 
+            $.LoadingOverlay("hide");
         })
     };
     // $scope.Init = () => {
@@ -203,8 +220,9 @@ function categoriController($scope, helperServices, WajibPajakServices, Kategori
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
     $scope.model = {};
+    $scope.marker = helperServices.marker;
     $scope.simpan = true;
-    KategoriServices.get().then(x=>{
+    KategoriServices.get().then(x => {
         $scope.datas = x;
         $.LoadingOverlay("hide");
     })
@@ -213,14 +231,18 @@ function categoriController($scope, helperServices, WajibPajakServices, Kategori
         $scope.simpan = false;
     }
     $scope.save = () => {
+        $.LoadingOverlay("show");
         if ($scope.model.id) {
             KategoriServices.put($scope.model).then(result => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'Proses Berhasil'
+                    text: 'Proses Berhasil',
+                    allowOutsideClick: false
                 })
                 $scope.model = {};
+                $scope.simpan = true
+                $.LoadingOverlay("hide");
             })
         } else {
             KategoriServices.post($scope.model).then(result => {
@@ -230,6 +252,8 @@ function categoriController($scope, helperServices, WajibPajakServices, Kategori
                     text: 'Proses Berhasil'
                 })
                 $scope.model = {};
+                $scope.simpan = true
+                $.LoadingOverlay("hide");
             })
         }
     }
