@@ -155,6 +155,7 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
     $scope.model = {};
+    $scope.distrik = helperServices.distrik;
     $scope.model.usaha = {};
     $scope.kategoris = [];
     $scope.simpan = true;
@@ -163,8 +164,10 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
     if (parseInt(helperServices.getParam())) {
         WajibPajakServices.getDetail(helperServices.getParam()).then(x => {
             $scope.model = x;
-            console.log(x);
+            $scope.model.usaha.jumlahpegawai = parseInt($scope.model.usaha.jumlahpegawai);
+            $scope.model.usaha.distrik = $scope.distrik.find(itemdistrik=>itemdistrik == $scope.model.usaha.distrik);
 
+            console.log($scope.model.usaha);
         })
     }
     $scope.edit = (item) => {
@@ -222,6 +225,8 @@ function categoriController($scope, helperServices, WajibPajakServices, Kategori
     $scope.model = {};
     $scope.marker = helperServices.marker;
     $scope.simpan = true;
+    var akhir = { lat: -2.585888, lng: 140.668497 };
+    googleMap = new GoogleMap(12, akhir);
     KategoriServices.get().then(x => {
         $scope.datas = x;
         $.LoadingOverlay("hide");

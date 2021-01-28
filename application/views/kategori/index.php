@@ -19,13 +19,13 @@
             <div class="col-md-9">
                 <select class="form-control  form-control-sm marker" id="marker" ng-model="model.marker">
                   <option value=""></option>
-                  <option value="blue">Blue</option>
-                  <option value="green">Green</option>
+                  <option ng-repeat="item in marker" value="{{item}}">{{item}}</option>
+                  <!-- <option value="green">Green</option>
                   <option value="orange">Orange</option>
                   <option value="pink">Pink</option>
                   <option value="purple">Purple</option>
                   <option value="red">Red</option>
-                  <option value="yellow">Yellow</option>
+                  <option value="yellow">Yellow</option> -->
                 </select>
             </div>
 

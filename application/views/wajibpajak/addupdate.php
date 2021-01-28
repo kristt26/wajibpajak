@@ -9,26 +9,26 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group row">
-                                <label for="nik" class="col-sm-2 col-form-label col-form-label-sm">No Induk KTP</label>
-                                <div class="col-sm-10">
+                                <label for="nik" class="col-sm-4 col-form-label col-form-label-sm">No Induk KTP</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="nik" ng-model="model.nik" placeholder="No Induk KTP">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nowajibpajak" class="col-sm-2 col-form-label col-form-label-sm">No Wajib Pajak</label>
-                                <div class="col-sm-10">
+                                <label for="nowajibpajak" class="col-sm-4 col-form-label col-form-label-sm">No Wajib Pajak</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="nowajibpajak" ng-model="model.nowajibpajak" placeholder="No Wajib Pajak">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-sm-2 col-form-label col-form-label-sm">Nama</label>
-                                <div class="col-sm-10">
+                                <label for="nama" class="col-sm-4 col-form-label col-form-label-sm">Nama</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="nama" ng-model="model.nama" placeholder="Nama Wajib Pajak">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="jk" class="col-sm-2 col-form-label col-form-label-sm">Jenis Kelamin</label>
-                                <div class="col-sm-10">
+                                <label for="jk" class="col-sm-4 col-form-label col-form-label-sm">Jenis Kelamin</label>
+                                <div class="col-sm-8">
                                     <select class="form-control select2 form-control-sm" ng-options="item as item for item in sexs" ng-model="model.jk" style="width: 100%;">
                                         <option value=""></option>
                                     </select>
@@ -39,20 +39,20 @@
                         </div>
                         <div class="col-md-5">
                             <div class="form-group row">
-                                <label for="kontak" class="col-sm-2 col-form-label col-form-label-sm">Kontak</label>
-                                <div class="col-sm-10">
+                                <label for="kontak" class="col-sm-4 col-form-label col-form-label-sm">Kontak</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="kontak" ng-model="model.kontak" placeholder="No Telepon">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="email" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
-                                <div class="col-sm-10">
+                                <label for="email" class="col-sm-4 col-form-label col-form-label-sm">Email</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="email" ng-model="model.email" placeholder="Email Aktif">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="alamat" class="col-sm-2 col-form-label col-form-label-sm">Alamat</label>
-                                <div class="col-sm-10">
+                                <label for="alamat" class="col-sm-4 col-form-label col-form-label-sm">Alamat</label>
+                                <div class="col-sm-8">
                                     <textarea type="text" class="form-control form-control-sm" id="alamat" rows="3" ng-model="model.alamat" placeholder="Alamat Lengkap"></textarea>
                                 </div>
                             </div>
@@ -71,29 +71,41 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group row">
-                                <label for="namausaha" class="col-sm-2 col-form-label col-form-label-sm">Nama</label>
-                                <div class="col-sm-10">
+                                <label for="namausaha" class="col-sm-4 col-form-label col-form-label-sm">Nama</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="namausaha" ng-model="model.usaha.nama" placeholder="Nama Usaha">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="lat" class="col-sm-2 col-form-label col-form-label-sm">Lat</label>
-                                <div class="col-sm-10">
+                                <label for="lat" class="col-sm-4 col-form-label col-form-label-sm">Lat</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="lat" ng-model="model.usaha.lat" placeholder="Latitude" disabled>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="long" class="col-sm-2 col-form-label col-form-label-sm">Long</label>
-                                <div class="col-sm-10">
+                                <label for="long" class="col-sm-4 col-form-label col-form-label-sm">Long</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control form-control-sm" id="long" ng-model="model.usaha.long" placeholder="Longitudinal" disabled>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kategori" class="col-sm-2 col-form-label col-form-label-sm">Kategori Usaha</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control select3 form-control-sm" id="kategori" ng-options="item as item.kategori for item in kategoris" ng-model="model.usaha.kategori" ng-change="model.usaha.kategoriid=model.usaha.kategori.id">
+                                <label for="kategori" class="col-sm-4 col-form-label col-form-label-sm">Kategori Usaha</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control select3 form-control-sm" id="kategori" ng-options="item as item.kategori for item in kategoris track by id" ng-model="model.usaha.kategori" ng-change="model.usaha.kategoriid=model.usaha.kategori.id">
                                         <option value=""></option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="luas" class="col-sm-4 col-form-label col-form-label-sm">Luas Bangunan</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" id="luas" ng-model="model.usaha.luas" placeholder="dalam M3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="jumlahpegawai" class="col-sm-4 col-form-label col-form-label-sm">Jumlah Pegawai</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control form-control-sm" id="jumlahpegawai" ng-model="model.usaha.jumlahpegawai" placeholder="Jumlah Pegawai">
                                 </div>
                             </div>
                         </div>
@@ -101,9 +113,38 @@
                         </div>
                         <div class="col-md-5">
                             <div class="form-group row">
-                                <label for="alamatusaha" class="col-sm-2 col-form-label col-form-label-sm">Alamat</label>
-                                <div class="col-sm-10">
+                                <label for="jenisbangunan" class="col-sm-4 col-form-label col-form-label-sm">Jenis Bangunan</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" id="jenisbangunan" ng-model="model.usaha.jenisbangunan">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="statustempatusaha" class="col-sm-4 col-form-label col-form-label-sm">Status Tempat Usaha</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-control-sm" id="statustempatusaha" ng-model="model.usaha.statustempatusaha" placeholder="Status Tempat Usaha">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="alamatusaha" class="col-sm-4 col-form-label col-form-label-sm">Alamat</label>
+                                <div class="col-sm-8">
                                     <textarea type="text" class="form-control form-control-sm" id="alamatusaha" rows="3" ng-model="model.usaha.alamat" placeholder="Alamat Tempat Usaha"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="distrik" class="col-sm-4 col-form-label col-form-label-sm">Distrik</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control select3 form-control-sm" id="distrik" ng-options="item as item for item in distrik" ng-model="model.usaha.distrik">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="status" class="col-sm-4 col-form-label col-form-label-sm">Status</label>
+                                <div class="col-sm-8">
+                                    <select id="status" class="form-control" ng-model="model.usaha.status">
+                                        <option></option>
+                                        <option value="true">Aktif</option>
+                                        <option value="false">Aktif Aktif</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -43,7 +43,12 @@ class Wajibpajak_model extends CI_Model
             'long' => $data['usaha']['long'],
             'kategoriid' => $data['usaha']['kategoriid'],
             'wajibpajakid' => $data['id'],
-            'status' => 'true',
+            'status' => $data['usaha']['status'],
+            'luas' => $data['usaha']['luas'],
+            'jenisbangunan' => $data['usaha']['jenisbangunan'],
+            'statustempatusaha' => $data['usaha']['statustempatusaha'],
+            'jumlahpegawai' => $data['usaha']['jumlahpegawai'],
+            'distrik' => $data['usaha']['distrik'],
         ];
         $this->db->insert('usaha', $itemusaha);
         $data['usaha']['id'] = $this->db->insert_id();
@@ -66,7 +71,12 @@ class Wajibpajak_model extends CI_Model
             'long' => $data['usaha']['long'],
             'kategoriid' => $data['usaha']['kategoriid'],
             'wajibpajakid' => $data['id'],
-            'status' => 'true',
+            'status' => $data['usaha']['status'],
+            'luas' => $data['usaha']['luas'],
+            'jenisbangunan' => $data['usaha']['jenisbangunan'],
+            'statustempatusaha' => $data['usaha']['statustempatusaha'],
+            'jumlahpegawai' => $data['usaha']['jumlahpegawai'],
+            'distrik' => $data['usaha']['distrik'],
         ];
         $this->db->where('id', $data['usaha']['id']);
         $this->db->update('usaha', $itemusaha);

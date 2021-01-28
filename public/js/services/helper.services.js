@@ -43,5 +43,6 @@ function helperServices($location) {
     service.roles = { id: 1, role: 'Admin' };
     service.sex = ['Pria', 'Wanita'];
     service.marker = ['Blue', 'Green', 'Orange', 'Pink', 'Purple', 'Red', 'Yellow'];
+    service.distrik = ['Jayapura Utara', 'Jayapura Selatan', 'Abepura', 'Muara Tami', 'Heram'];
     return service;
 }

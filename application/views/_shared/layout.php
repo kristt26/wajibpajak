@@ -52,7 +52,7 @@ if (!$this->session->userdata('is_login')) {
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <a class="nav-link" href="<?=base_url('auth/logout')?>">
             LOGOUT
           </a>
         </li>
@@ -233,6 +233,9 @@ if (!$this->session->userdata('is_login')) {
       });
       $('.select3').select2({
         placeholder: '--- Pilih Item ---',
+        // tags: "true",
+        allowClear: true
+
       });
 
       //Initialize Select2 Elements

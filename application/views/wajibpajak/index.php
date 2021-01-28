@@ -9,6 +9,11 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0" style="height: 200px;">
+        <div id="map-panel">
+                <input id="pac-input" class="controls" type="text" placeholder="Search Box"/>
+                <div id="map"></div>
+                <div id="directions-panel"></div>
+            </div>
         <table class="table table-sm table-hover table-head-fixed text-nowrap">
           <thead>
             <tr>
