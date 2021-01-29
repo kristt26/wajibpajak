@@ -87,9 +87,45 @@ function wajibPajakController($scope, helperServices, WajibPajakServices) {
     $scope.model = {};
     $scope.simpan = true;
     var akhir = { lat: -2.585888, lng: 140.668497 };
-    googleMap = new GoogleMap(12, akhir);
+    googleMap = new GoogleMap(13, akhir, "roadmap");
     WajibPajakServices.get().then(x => {
         $scope.datas = x;
+        $scope.datas.forEach(element => {
+            var pos = { lat: parseFloat(element.usaha.lat), lng: parseFloat(element.usaha.long) };
+              const contentString =
+                '<div class="col-md-12">'+
+                        '<div class="card-body pb-0">'+
+                            '<div class="row d-flex align-items-stretch">'+
+                                '<div class="col-12 d-flex align-items-stretch">'+
+                                    '<div class="card">'+
+                                        '<div class="card-header text-muted border-bottom-0">'+
+                                            element.usaha.nama+
+                                        '</div>'+
+                                        '<div class="card-body pt-0">'+
+                                            '<div class="row">'+
+                                                '<div class="col-7">'+
+                                                    '<h2 class="lead"><b>Pemilik ' + element.nama + '</b></h2>'+
+                                                    '<p class="text-muted text-sm"><b>Jenis Usaha. </b>' + element.usaha.kategori.kategori + '</p>'+
+                                                    '<ul class="ml-4 mb-0 fa-ul text-muted">'+
+                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Alamat. '+ element.usaha.alamat +'</li>'+
+                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone. ' +element.kontak+ '</li>'+
+                                                    '</ul>'+
+                                                '</div>'+
+                                                '<div class="col-5 text-center">'+
+                                                    '<img src="'+ helperServices.url + '/public/img/foto/' + element.usaha.gambar + '" alt="user-avatar" style="width:100%" class="img-fluid">'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                '</div>';
+              googleMap.setMarkerLabel(pos, element.nama, helperServices.url+'/public/img/marker/'+element.usaha.kategori.marker+'.png', null, contentString, element.usaha.kategori.kategori,element.usaha.kategori.marker);
+        });
+        var infoWindow = new google.maps.InfoWindow;
+        googleMap.setCurrentPosition();
+        googleMap.showdata = $scope.show;
         $.LoadingOverlay("hide");
     })
     $scope.edit = (item) => {
@@ -145,7 +181,7 @@ function wajibPajakController($scope, helperServices, WajibPajakServices) {
             $scope.model.usaha.alamat = item.alamat;
             $scope.model.usaha.lat = item.location.lat;
             $scope.model.usaha.long = item.location.lng;
-            $("#modal-map").modal('hide');
+            // $("#modal-map").modal('hide');
         })
     }
 }
@@ -161,12 +197,13 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
     $scope.simpan = true;
     var akhir = { lat: -2.585888, lng: 140.668497 };
     googleMap = new GoogleMap(12, akhir);
-    if (parseInt(helperServices.getParam())) {
+    // const urlParams = new URLSearchParams(window.location.search);
+    if (parseInt(document.URL.substring(document.URL.lastIndexOf('/') + 1))) {
         WajibPajakServices.getDetail(helperServices.getParam()).then(x => {
             $scope.model = x;
             $scope.model.usaha.jumlahpegawai = parseInt($scope.model.usaha.jumlahpegawai);
             $scope.model.usaha.distrik = $scope.distrik.find(itemdistrik=>itemdistrik == $scope.model.usaha.distrik);
-
+            $scope.simpan = false;
             console.log($scope.model.usaha);
         })
     }
@@ -217,6 +254,9 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
             $("#modal-map").modal('hide');
         })
     }
+    $scope.logFile= (item)=>{
+        console.log(item);
+    }
 }
 function categoriController($scope, helperServices, WajibPajakServices, KategoriServices) {
     $scope.itemHeader = { title: "Jenis Usaha", breadcrumb: "Jenis Usaha", header: "Jenis Usaha" };
@@ -225,8 +265,8 @@ function categoriController($scope, helperServices, WajibPajakServices, Kategori
     $scope.model = {};
     $scope.marker = helperServices.marker;
     $scope.simpan = true;
-    var akhir = { lat: -2.585888, lng: 140.668497 };
-    googleMap = new GoogleMap(12, akhir);
+    // var akhir = { lat: -2.585888, lng: 140.668497 };
+    // googleMap = new GoogleMap(12, akhir);
     KategoriServices.get().then(x => {
         $scope.datas = x;
         $.LoadingOverlay("hide");

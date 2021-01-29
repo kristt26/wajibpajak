@@ -34,7 +34,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed layout-navbar-fixed">
   <?php
 if (!$this->session->userdata('is_login')) {
     redirect('auth');
@@ -208,6 +208,10 @@ if (!$this->session->userdata('is_login')) {
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByGhiEjG2rcKsVqYXwJOtUugy0BS55_lo&libraries=geometry,places"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <script src="<?=base_url()?>public/plugins/loading/dist/loadingoverlay.min.js"></script>
+  <script src="<?=base_url()?>public/lib/angular-locale_id-id.js"></script>
+  <script src="<?=base_url()?>public/lib/input-mask/angular-input-masks-standalone.min.js"></script>
+  <script src="<?=base_url()?>public/lib/angular-base64-upload.js"></script>
+  <script src="http://cdn.sobekrepository.org/includes/gmaps-markerwithlabel/1.9.1/gmaps-markerwithlabel-1.9.1.js" type="text/javascript"></script>
   <!-- Page script -->
   <script>
     $.LoadingOverlay("show", {

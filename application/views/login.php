@@ -76,6 +76,9 @@
 
 <!-- AdminLTE App -->
 <script src="<?=base_url()?>public/dist/js/adminlte.min.js"></script>
+<script src="<?=base_url()?>public/lib/angular-locale_id-id.js"></script>
+  <script src="<?=base_url()?>public/lib/input-mask/angular-input-masks-standalone.min.js"></script>
+  <script src="<?=base_url()?>public/lib/angular-base64-upload.js"></script>
 
 </body>
 </html>

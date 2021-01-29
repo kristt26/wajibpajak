@@ -4,6 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Wajibpajak_model extends CI_Model
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('mylib');
+
+    }
 
     public function select($id = null)
     {
@@ -49,6 +55,7 @@ class Wajibpajak_model extends CI_Model
             'statustempatusaha' => $data['usaha']['statustempatusaha'],
             'jumlahpegawai' => $data['usaha']['jumlahpegawai'],
             'distrik' => $data['usaha']['distrik'],
+            'gambar' => isset($data['usaha']['gambar']['base64']) ? $this->mylib->decodebase64($data['usaha']['gambar']['base64'], 'foto') : $data['usaha']['gambar'],
         ];
         $this->db->insert('usaha', $itemusaha);
         $data['usaha']['id'] = $this->db->insert_id();

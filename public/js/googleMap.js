@@ -6,13 +6,13 @@ class GoogleMap {
     currentPosition = {};
     address = {};
 
-    constructor(zoom, center) {
+    constructor(zoom, center, mapTypeId) {
         this.directionsService = new google.maps.DirectionsService();
         this.directionsRenderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true
         });
 
-        this.map = new google.maps.Map(document.getElementById('map'), { zoom: zoom, center: center });
+        this.map = new google.maps.Map(document.getElementById('map'), { zoom: zoom, center: center, mapTypeId: mapTypeId });
         window.googleMap = this;
         this.directionsRenderer.setMap(this.map);
 
@@ -110,8 +110,44 @@ class GoogleMap {
     }
 
 
-    setMarker = (position, title, icon, direction, contentString) => {
-        var marker = new google.maps.Marker({ position: position, map: this.map, icon: icon, title: title });
+    setMarker = (position, title, icon, direction, contentString, kategori, colorLabel) => {
+        var marker = new google.maps.Marker({ position: position, map: this.map, icon: {url: icon, labelOrigin: { x: 14, y: 40}}, title: title, label:{text: kategori, color: colorLabel, fontSize: '12px'}, labelClass: "label-marker" });
+        if (!direction) {
+            marker.addListener('click', x => {
+                var setLocation = { lat: x.latLng.lat(), lng: x.latLng.lng() };
+                var request = {
+                    origin: this.currentPosition,
+                    destination: setLocation,
+                    travelMode: 'DRIVING',
+                };
+                this.directionsService.route(request, function (response, status) {
+                    if (status == 'OK') {
+                        this.googleMap.directionsRenderer.setDirections(response);
+                        var mappanel = document.getElementById('map-panel');
+                        mappanel.style.display = "flex";
+                    }
+                });
+                if (contentString) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+                    infoWindow.open(map, marker);
+                }
+            })
+        }
+    }
+
+    setMarkerLabel = (position, title, icon, direction, contentString, kategori, colorLabel) => {
+        var marker = new MarkerWithLabel({ 
+            position: position, 
+            map: this.map, 
+            icon: icon, 
+            // title: title,  
+            labelContent: kategori, 
+            labelAnchor: new google.maps.Point(30, 0),
+            labelClass: "label-marker " + colorLabel,
+            labelInBackground: true 
+        });
         if (!direction) {
             marker.addListener('click', x => {
                 var setLocation = { lat: x.latLng.lat(), lng: x.latLng.lng() };

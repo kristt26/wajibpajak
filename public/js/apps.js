@@ -2,7 +2,10 @@ angular.module('apps', [
     'adminctrl',
     'helper.service',
     'auth.service',
-    'services'
+    'services',
+    'ngLocale',
+    'ui.utils.masks',
+    'naif.base64'
 ])
     .controller('indexController', function ($scope) {
         $scope.titleHeader = "SI Wajib Pajak";
