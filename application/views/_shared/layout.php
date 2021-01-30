@@ -32,6 +32,32 @@
   <link rel="stylesheet" href="<?=base_url()?>public/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+            .containerr {
+                display: flex;
+                height: 60vh;
+                justify-content: center;
+                align-items: center;
+                direction: row;
+            }
+         
+            @media screen {
+                #print {
+                    /* font-family:verdana, arial, sans-serif; */
+                }
+                .screen{
+                    display:none;
+                }
+            }
+
+            @media print {
+                /* #print {font-family:georgia, times, serif;} */
+                .screen{
+                    display:block;
+                }
+            }
+        </style>
+</head>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed layout-navbar-fixed">
@@ -61,77 +87,10 @@ if (!$this->session->userdata('is_login')) {
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="<?=base_url()?>public/index3.html" class="brand-link">
-        <img src="<?=base_url()?>public/img/logo.png" alt="AdminLTE Logo" class="brand-image elevation-3"
-          style="opacity: .8">
-        <span class="brand-text font-weight-light">Wajib Pajak</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="<?=base_url()?>favicon.ico" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">Admin</a>
-          </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="<?=base_url('home')?>" ng-class="{'nav-link active': header=='Home', 'nav-link': header!='Home'}">
-                <i class="nav-icon fas fa-home"></i>
-                <p>
-                  Home
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?=base_url('petugas')?>" ng-class="{'nav-link active': header=='Petugas', 'nav-link': header!='Petugas'}">
-                <i class="nav-icon fas fa-users"></i>
-                <p>
-                  Petugas
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?=base_url('kategori')?>" ng-class="{'nav-link active': header=='Jenis Usaha', 'nav-link': header!='Jenis Usaha'}">
-                <i class="nav-icon fas fa-registered"></i>
-                <p>
-                  Jenis Usaha
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?=base_url('wajibpajak')?>" ng-class="{'nav-link active': header=='Wajib Pajak', 'nav-link': header!='Wajib Pajak'}">
-                <i class="nav-icon fas fa-address-card"></i>
-                <p>
-                  Wajib Pajak
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?=base_url('wajibpajak')?>" ng-class="{'nav-link active': header=='Laporan', 'nav-link': header!='Laporan'}">
-                <i class="nav-icon fas fa-file"></i>
-                <p>
-                  Laporan
-                </p>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
+    <?php
+      $this->load->view('_shared/sidebar');
+      
+    ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -212,6 +171,7 @@ if (!$this->session->userdata('is_login')) {
   <script src="<?=base_url()?>public/lib/input-mask/angular-input-masks-standalone.min.js"></script>
   <script src="<?=base_url()?>public/lib/angular-base64-upload.js"></script>
   <script src="http://cdn.sobekrepository.org/includes/gmaps-markerwithlabel/1.9.1/gmaps-markerwithlabel-1.9.1.js" type="text/javascript"></script>
+  <script src="<?=base_url()?>public/js/jquery.PrintArea.js"></script>
   <!-- Page script -->
   <script>
     $.LoadingOverlay("show", {
@@ -236,10 +196,7 @@ if (!$this->session->userdata('is_login')) {
         templateResult: formatState
       });
       $('.select3').select2({
-        placeholder: '--- Pilih Item ---',
-        // tags: "true",
-        allowClear: true
-
+        placeholder: '--- Pilih Item ---'
       });
 
       //Initialize Select2 Elements

@@ -1,6 +1,6 @@
-<div class="row" ng-controller="wajibPajakController">
+<div class="row" ng-controller="wajibPajakController" ng-init="Init()">
   <div class="col-md-12">
-    
+
   </div>
   <div class="col-md-12">
     <div class="card card-warning">
@@ -12,6 +12,29 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group row">
+              <label for="" class="col-sm-2 col-form-label col-form-label-sm">Distrik</label>
+              <div class="col-sm-7">
+                <select class="form-control form-control-sm" ng-options="item as item for item in distrik"
+                  ng-model="itemdistrik" ng-change=filterMarker()>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="form-group row">
+              <label for="" class="col-sm-2 col-form-label col-form-label-sm">Jenus Usaha</label>
+              <div class="col-sm-8">
+                <div class="custom-control custom-checkbox custom-control-inline" ng-repeat="item in kategoris">
+                  <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="inlineCheckbox{{item.id}}" ng-model="item.checked" ng-change=filterMarker()>
+                  <label class="custom-control-label" for="inlineCheckbox{{item.id}}">{{item.kategori}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id="map-panel">
           <input id="pac-input" class="controls" type="text" placeholder="Search Box" />
           <div id="map">&#160;</div>
@@ -52,8 +75,8 @@
               <td>{{item.email}}</td>
               <td>{{item.usaha.nama}}</td>
               <td>
-                <a href="javascript:void()" class="btn btn-info btn-sm" ng-click="showMap(item)"><i
-                    class="fas fa-eye"></i></a>
+                <!-- <a href="javascript:void()" class="btn btn-info btn-sm" ng-click="showMap(item)"><i
+                    class="fas fa-eye"></i></a> -->
                 <a href="<?=base_url('wajibpajak/content/')?>{{item.id}}" class="btn btn-warning btn-sm"><i
                     class="fas fa-edit"></i></a>
               </td>

@@ -108,10 +108,19 @@ class GoogleMap {
     getAddress = () => {
         return this.address;
     }
+    clearMaker = ()=>{
+        var marker = new google.maps.Marker(null);
+    }
 
 
     setMarker = (position, title, icon, direction, contentString, kategori, colorLabel) => {
-        var marker = new google.maps.Marker({ position: position, map: this.map, icon: {url: icon, labelOrigin: { x: 14, y: 40}}, title: title, label:{text: kategori, color: colorLabel, fontSize: '12px'}, labelClass: "label-marker" });
+        var marker = new google.maps.Marker({ 
+            position: position, 
+            map: this.map, 
+            icon: {url: icon, labelOrigin: { x: 14, y: 40}}, 
+            title: title, 
+            label:{text: kategori, color: colorLabel, fontSize: '12px'}, 
+            labelClass: "label-marker" });
         if (!direction) {
             marker.addListener('click', x => {
                 var setLocation = { lat: x.latLng.lat(), lng: x.latLng.lng() };

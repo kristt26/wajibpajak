@@ -6,6 +6,7 @@ angular.module('adminctrl', [])
     .controller('wajibPajakController', wajibPajakController)
     .controller('contentWajibPajakController', contentWajibPajakController)
     .controller('categoriController', categoriController)
+    .controller('laporanController', laporanController)
     ;
 function homeController($scope) {
     $scope.Title = "Page Header";
@@ -80,53 +81,19 @@ function petugasController($scope, helperServices, PetugasServices) {
     }
 }
 
-function wajibPajakController($scope, helperServices, WajibPajakServices) {
+function wajibPajakController($scope, helperServices, WajibPajakServices, KategoriServices) {
     $scope.itemHeader = { title: "Wajib Pajak", breadcrumb: "Wajib Pajak", header: "Wajib Pajak" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
     $scope.model = {};
+    $scope.distrik=[];
     $scope.simpan = true;
+    $scope.itemdistrik = 'All';
     var akhir = { lat: -2.585888, lng: 140.668497 };
-    googleMap = new GoogleMap(13, akhir, "roadmap");
+    googleMap = new GoogleMap(12, akhir, "roadmap");
     WajibPajakServices.get().then(x => {
         $scope.datas = x;
-        $scope.datas.forEach(element => {
-            var pos = { lat: parseFloat(element.usaha.lat), lng: parseFloat(element.usaha.long) };
-              const contentString =
-                '<div class="col-md-12">'+
-                        '<div class="card-body pb-0">'+
-                            '<div class="row d-flex align-items-stretch">'+
-                                '<div class="col-12 d-flex align-items-stretch">'+
-                                    '<div class="card">'+
-                                        '<div class="card-header text-muted border-bottom-0">'+
-                                            element.usaha.nama+
-                                        '</div>'+
-                                        '<div class="card-body pt-0">'+
-                                            '<div class="row">'+
-                                                '<div class="col-7">'+
-                                                    '<h2 class="lead"><b>Pemilik ' + element.nama + '</b></h2>'+
-                                                    '<p class="text-muted text-sm"><b>Jenis Usaha. </b>' + element.usaha.kategori.kategori + '</p>'+
-                                                    '<ul class="ml-4 mb-0 fa-ul text-muted">'+
-                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Alamat. '+ element.usaha.alamat +'</li>'+
-                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone. ' +element.kontak+ '</li>'+
-                                                    '</ul>'+
-                                                '</div>'+
-                                                '<div class="col-5 text-center">'+
-                                                    '<img src="'+ helperServices.url + '/public/img/foto/' + element.usaha.gambar + '" alt="user-avatar" style="width:100%" class="img-fluid">'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>'+
-                '</div>';
-              googleMap.setMarkerLabel(pos, element.nama, helperServices.url+'/public/img/marker/'+element.usaha.kategori.marker+'.png', null, contentString, element.usaha.kategori.kategori,element.usaha.kategori.marker);
-        });
-        var infoWindow = new google.maps.InfoWindow;
-        googleMap.setCurrentPosition();
-        googleMap.showdata = $scope.show;
-        $.LoadingOverlay("hide");
+        $scope.setMarker($scope.datas);
     })
     $scope.edit = (item) => {
         $scope.model = angular.copy(item);
@@ -169,12 +136,77 @@ function wajibPajakController($scope, helperServices, WajibPajakServices) {
         // googleMap.setMarker(akhir);
         googleMap.showdata = $scope.show;
         KategoriServices.get().then(x => {
+            $scope.distrik.push('All');
+            helperServices.distrik.forEach(element => {
+                $scope.distrik.push(element);
+            });
+            x.forEach(element => {
+             element.checked = true;   
+            });
             $scope.kategoris = x;
         })
+        // googleMap.setMarkerLabel(null);
     };
-    // $scope.Init = () => {
-    //     googleMap.showdata = $scope.show;
-    // };
+    
+    $scope.filterMarker = ()=>{
+        console.log($scope.kategoris);
+        var data = angular.copy($scope.datas);
+        var setData = $scope.itemdistrik == 'All' ? data : data.filter(x=>x.usaha.distrik==$scope.itemdistrik);
+        var setitem = [];
+        $scope.kategoris.forEach(element => {
+            if(element.checked){
+                setData.forEach(itemdata => {
+                    if(itemdata.usaha.kategoriid == element.id){
+                        setitem.push(itemdata);
+                    }
+                });
+            }
+        });
+        // console.log();
+        googleMap = new GoogleMap(12, akhir, "roadmap");
+        $scope.setMarker(setitem);
+        // googleMap.clearMaker();
+    }
+    $scope.setMarker = (data) => {
+        
+        data.forEach(element => {
+            var pos = { lat: parseFloat(element.usaha.lat), lng: parseFloat(element.usaha.long) };
+              const contentString =
+                '<div class="col-md-12">'+
+                        '<div class="card-body pb-0">'+
+                            '<div class="row d-flex align-items-stretch">'+
+                                '<div class="col-12 d-flex align-items-stretch">'+
+                                    '<div class="card">'+
+                                        '<div class="card-header text-muted border-bottom-0">'+
+                                            element.usaha.nama+
+                                        '</div>'+
+                                        '<div class="card-body pt-0">'+
+                                            '<div class="row">'+
+                                                '<div class="col-7">'+
+                                                    '<h2 class="lead"><b>Pemilik ' + element.nama + '</b></h2>'+
+                                                    '<p class="text-muted text-sm"><b>Jenis Usaha. </b>' + element.usaha.kategori.kategori + '</p>'+
+                                                    '<ul class="ml-4 mb-0 fa-ul text-muted">'+
+                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Alamat. '+ element.usaha.alamat +'</li>'+
+                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone. ' +element.kontak+ '</li>'+
+                                                    '</ul>'+
+                                                '</div>'+
+                                                '<div class="col-5 text-center">'+
+                                                    '<img src="'+ helperServices.url + '/public/img/foto/' + element.usaha.gambar + '" alt="user-avatar" style="width:100%" class="img-fluid">'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                '</div>';
+              googleMap.setMarker(pos, element.nama, helperServices.url+'/public/img/marker/'+element.usaha.kategori.marker+'.png', null, contentString, element.usaha.kategori.kategori,element.usaha.kategori.marker);
+        });
+        var infoWindow = new google.maps.InfoWindow;
+        googleMap.setCurrentPosition();
+        googleMap.showdata = $scope.show;
+        $.LoadingOverlay("hide");
+    };
 
     $scope.show = (item) => {
         $scope.$apply(x => {
@@ -301,5 +333,21 @@ function categoriController($scope, helperServices, WajibPajakServices, Kategori
                 $.LoadingOverlay("hide");
             })
         }
+    }
+}
+function laporanController($scope, LaporanServices) {
+    $scope.datas = [];
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('set') == 'tempat') {
+        $scope.itemHeader = { title: "Laporan Tempat Usaha", breadcrumb: "Laporan", header: "Laporan" };
+        $scope.$emit("SendUp", $scope.itemHeader);
+        $.LoadingOverlay("hide");
+    }else{
+        $scope.itemHeader = { title: "Laporan Rekapitulasi", breadcrumb: "Laporan", header: "Laporan" };
+        $scope.$emit("SendUp", $scope.itemHeader);
+        $.LoadingOverlay("hide");
+    }
+    $scope.print = () => {
+        $("#print").printArea();
     }
 }

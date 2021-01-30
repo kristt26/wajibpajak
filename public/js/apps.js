@@ -14,7 +14,7 @@ angular.module('apps', [
         
 
         $scope.$on("SendUp", function (evt, data) {
-            $scope.header = data.title;
+            $scope.title = data.title;
             $scope.header = data.header;
             $scope.breadcrumb = data.breadcrumb;
         });

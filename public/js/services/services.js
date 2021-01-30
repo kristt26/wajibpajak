@@ -3,6 +3,7 @@ angular.module('services', [])
     .factory('PetugasServices', PetugasServices)
     .factory('WajibPajakServices', WajibPajakServices)
     .factory('KategoriServices', KategoriServices)
+    .factory('LaporanServices', LaporanServices)
     ;
 
 function UserServices($http, $q, helperServices) {
@@ -384,5 +385,39 @@ function KategoriServices($http, $q, helperServices, AuthService) {
         return def.promise;
     }
 
+}
+function LaporanServices($http, $q, helperServices, AuthService) {
+    var controller = helperServices.url + '/laporan/';
+    var service = {};
+    service.data = [];
+    service.instance = false;
+    return {
+        get: get
+    };
+
+    function get(item) {
+        var def = $q.defer();
+        if (service.instance) {
+            def.resolve(service.data);
+        } else {
+            $http({
+                method: 'get',
+                url: controller + 'get?set=' + item,
+                headers: AuthService.getHeader()
+            }).then(
+                (res) => {
+                    service.instance = true;
+                    service.data = res.data;
+                    def.resolve(res.data);
+                },
+                (err) => {
+                    console.log(err.data);
+                    def.reject(err);
+
+                }
+            );
+        }
+        return def.promise;
+    }
 }
 

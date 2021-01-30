@@ -59,7 +59,7 @@ class Petugas_model extends CI_Model
         $this->db->trans_begin();
         $user = [
             'username' => $data['email'],
-            'password' => md5($data['email']),
+            'password' => md5($data['password']),
             'status' => 'true',
         ];
         $this->db->insert('user', $user);
