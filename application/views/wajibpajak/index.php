@@ -6,9 +6,11 @@
     <div class="card card-warning">
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-th-list"></i>&nbsp;&nbsp; MAP</h3>
+        <?php if ($this->session->userdata('role') == 'Petugas'): ?>
         <div class="card-tools">
           <a href="<?=base_url('wajibpajak/content')?>" class="btn btn-primary btn-sm">Tambah</a>
         </div>
+        <?php endif;?>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -25,7 +27,7 @@
           </div>
           <div class="col-md-7">
             <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label col-form-label-sm">Jenus Usaha</label>
+              <label for="" class="col-sm-2 col-form-label col-form-label-sm">Kategori Usaha</label>
               <div class="col-sm-8">
                 <div class="custom-control custom-checkbox custom-control-inline" ng-repeat="item in kategoris">
                   <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="inlineCheckbox{{item.id}}" ng-model="item.checked" ng-change=filterMarker()>

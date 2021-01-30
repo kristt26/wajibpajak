@@ -7,22 +7,24 @@ class User_model extends CI_Model
     public function check()
     {
         $data = $this->db->get("user")->result();
-        if(count($data)==0){
+        if (count($data) == 0) {
             $role = ['Admin', 'Petugas'];
             $this->db->trans_begin();
             $idrole;
             foreach ($role as $key => $value) {
-                $this->db->insert('role', ['role'=>$value]);
+                $this->db->insert('role', ['role' => $value]);
                 $idrole = $this->db->insert_id();
-                if($key==0)
-                    $roleid =  $idrole;
+                if ($value == 'Admin') {
+                    $roleid = $idrole;
+                }
+
             }
-            $this->db->insert('user', ['username'=>'admin@mail.com', 'password'=> md5('admin')]);
+            $this->db->insert('user', ['username' => 'admin@mail.com', 'password' => md5('admin')]);
             $iduser = $this->db->insert_id();
-            $this->db->insert('userrole', ['roleid'=>$idrole, 'userid'=> $iduser]);
-            if($this->db->trans_status()){
+            $this->db->insert('userrole', ['roleid' => $idrole, 'userid' => $iduser]);
+            if ($this->db->trans_status()) {
                 $this->db->trans_commit();
-            }else{
+            } else {
                 $this->db->trans_rollback();
             }
         }
@@ -39,10 +41,13 @@ class User_model extends CI_Model
             `petugas`.`nama`,
             `petugas`.`alamat`,
             `petugas`.`kontak`,
-            `petugas`.`email`
+            `petugas`.`email`,
+            `role`.`role`
         FROM
             `user`
-            LEFT JOIN `petugas` ON `user`.`id` = `petugas`.`userid` WHERE user.username='$username' and user.password='$password'")->row_array();
+            LEFT JOIN `petugas` ON `user`.`id` = `petugas`.`userid`
+            LEFT JOIN `userrole` ON `userrole`.`userid` = `user`.`id`
+            LEFT JOIN `role` ON `role`.`id` = `userrole`.`roleid` WHERE user.username='$username' and user.password='$password'")->row_array();
     }
     public function insert($data)
     {

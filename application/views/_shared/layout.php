@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{titleHeader}}</title>
+  <link rel="icon" href="<?=base_url('favicon.ico')?>">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,7 +41,7 @@
                 align-items: center;
                 direction: row;
             }
-         
+
             @media screen {
                 #print {
                     /* font-family:verdana, arial, sans-serif; */
@@ -88,9 +89,9 @@ if (!$this->session->userdata('is_login')) {
 
     <!-- Main Sidebar Container -->
     <?php
-      $this->load->view('_shared/sidebar');
-      
-    ?>
+$this->load->view('_shared/sidebar');
+
+?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

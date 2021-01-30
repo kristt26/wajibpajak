@@ -64,9 +64,10 @@ class Petugas_model extends CI_Model
         ];
         $this->db->insert('user', $user);
         $userid = $this->db->insert_id();
+        $datarole = $this->db->get_where('role', ['role' => 'Petugas'])->row_object();
         $role = [
             'userid' => $userid,
-            'roleid' => $data['roles']['id'],
+            'roleid' => $datarole->id,
         ];
         $this->db->insert('userrole', $role);
         $petugas = [

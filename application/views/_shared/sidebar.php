@@ -10,11 +10,12 @@
       <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
+          <!-- <div class="image">
             <img src="<?=base_url()?>favicon.ico" class="img-circle elevation-2" alt="User Image">
-          </div>
+          </div> -->
           <div class="info">
-            <a href="#" class="d-block">Admin</a>
+            <h5 style="color:#fff"><?=$this->session->userdata('nama');?></h5>
+            <a href="#" class="d-block"><?=$this->session->userdata('role');?></a>
           </div>
         </div>
 
@@ -31,6 +32,7 @@
                 </p>
               </a>
             </li>
+            <?php if ($this->session->userdata('role') == 'Admin'): ?>
             <li class="nav-item">
               <a href="<?=base_url('petugas')?>" ng-class="{'nav-link active': header=='Petugas', 'nav-link': header!='Petugas'}">
                 <i class="nav-icon fas fa-users"></i>
@@ -47,6 +49,7 @@
                 </p>
               </a>
             </li>
+            <?php endif;?>
             <li class="nav-item">
               <a href="<?=base_url('wajibpajak')?>" ng-class="{'nav-link active': header=='Wajib Pajak', 'nav-link': header!='Wajib Pajak'}">
                 <i class="nav-icon fas fa-address-card"></i>
@@ -55,6 +58,7 @@
                 </p>
               </a>
             </li>
+            <?php if ($this->session->userdata('role') == 'Admin'): ?>
             <li ng-class="{'nav-item menu-open': header=='Laporan', 'nav-item': header!='Laporan'}">
               <a href="javascript:void()" ng-class="{'nav-link active': header=='Laporan', 'nav-link': header!='Laporan'}">
                 <i class="nav-icon fas fa-file"></i>
@@ -78,6 +82,7 @@
                 </li>
               </ul>
             </li>
+            <?php endif;?>
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
