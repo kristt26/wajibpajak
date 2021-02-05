@@ -77,7 +77,7 @@
                 <li class="nav-item">
                   <a href="<?=base_url('laporan?set=rekap')?>" ng-class="{'nav-link active': title=='Laporan Rekapitulasi', 'nav-link': title!='Laporan Rekapitulasi'}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tempat Usaha</p>
+                    <p>Rekapitulasi</p>
                   </a>
                 </li>
               </ul>

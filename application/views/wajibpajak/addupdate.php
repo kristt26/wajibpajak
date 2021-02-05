@@ -140,7 +140,7 @@
                         <div class="col-md-2">
                         </div>
                         <div class="col-md-5">
-                            
+
                             <div class="form-group row">
                                 <label for="statustempatusaha" class="col-sm-4 col-form-label col-form-label-sm">Status
                                     Tempat Usaha</label>
@@ -189,7 +189,7 @@
                                     <select id="status" class="form-control" ng-model="model.usaha.status">
                                         <option></option>
                                         <option value="true">Aktif</option>
-                                        <option value="false">Aktif Aktif</option>
+                                        <option value="false">Tidak Aktif</option>
                                     </select>
                                 </div>
                             </div>

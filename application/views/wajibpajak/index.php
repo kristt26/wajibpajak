@@ -20,7 +20,7 @@
               <label for="" class="col-sm-2 col-form-label col-form-label-sm">Distrik</label>
               <div class="col-sm-7">
                 <select class="form-control form-control-sm" ng-options="item as item for item in distrik"
-                  ng-model="itemdistrik" ng-change=filterMarker()>
+                  ng-model="itemdistrik" ng-change="filterMarker(); itemfilter = itemdistrik=='All' ? '' : itemdistrik">
                 </select>
               </div>
             </div>
@@ -66,7 +66,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="item in datas">
+            <tr ng-repeat="item in datas | filter: itemfilter">
               <td>{{$index+1}}</td>
               <td>{{item.nik}}</td>
               <td>{{item.nowajibpajak}}</td>

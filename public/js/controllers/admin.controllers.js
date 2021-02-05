@@ -9,8 +9,8 @@ angular.module('adminctrl', [])
     .controller('laporanController', laporanController)
     ;
 function homeController($scope) {
-    $scope.Title = "Page Header";
-    $scope.$emit("SendUp", "Home");
+    $scope.itemHeader = { title: "Home", breadcrumb: "Home", header: "Home" };
+    $scope.$emit("SendUp", $scope.itemHeader);
     $.LoadingOverlay("hide");
 }
 function loginController($scope, AuthService, helperServices) {
@@ -86,7 +86,7 @@ function wajibPajakController($scope, helperServices, WajibPajakServices, Katego
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
     $scope.model = {};
-    $scope.distrik=[];
+    $scope.distrik = [];
     $scope.simpan = true;
     $scope.itemdistrik = 'All';
     var akhir = { lat: -2.585888, lng: 140.668497 };
@@ -141,22 +141,22 @@ function wajibPajakController($scope, helperServices, WajibPajakServices, Katego
                 $scope.distrik.push(element);
             });
             x.forEach(element => {
-             element.checked = true;   
+                element.checked = true;
             });
             $scope.kategoris = x;
         })
         // googleMap.setMarkerLabel(null);
     };
-    
-    $scope.filterMarker = ()=>{
+
+    $scope.filterMarker = () => {
         console.log($scope.kategoris);
         var data = angular.copy($scope.datas);
-        var setData = $scope.itemdistrik == 'All' ? data : data.filter(x=>x.usaha.distrik==$scope.itemdistrik);
+        var setData = $scope.itemdistrik == 'All' ? data : data.filter(x => x.usaha.distrik == $scope.itemdistrik);
         var setitem = [];
         $scope.kategoris.forEach(element => {
-            if(element.checked){
+            if (element.checked) {
                 setData.forEach(itemdata => {
-                    if(itemdata.usaha.kategoriid == element.id){
+                    if (itemdata.usaha.kategoriid == element.id) {
                         setitem.push(itemdata);
                     }
                 });
@@ -164,43 +164,52 @@ function wajibPajakController($scope, helperServices, WajibPajakServices, Katego
         });
         // console.log();
         googleMap = new GoogleMap(12, akhir, "roadmap");
+        var list = document.getElementById("directions-panel");
+        if(list.childNodes.length==1){
+            list.removeChild(list.childNodes[0]);
+        }else if(list.childNodes.length==2){
+            list.removeChild(list.childNodes[0]);
+            list.removeChild(list.childNodes[0]);
+        }
         $scope.setMarker(setitem);
+        document.getElementById('directions-panel').innerHTML += "<h5 id='direc'>Direction Panel Map</h5>";
+
         // googleMap.clearMaker();
     }
     $scope.setMarker = (data) => {
-        
+
         data.forEach(element => {
             var pos = { lat: parseFloat(element.usaha.lat), lng: parseFloat(element.usaha.long) };
-              const contentString =
-                '<div class="col-md-12">'+
-                        '<div class="card-body pb-0">'+
-                            '<div class="row d-flex align-items-stretch">'+
-                                '<div class="col-12 d-flex align-items-stretch">'+
-                                    '<div class="card">'+
-                                        '<div class="card-header text-muted border-bottom-0">'+
-                                            element.usaha.nama+
-                                        '</div>'+
-                                        '<div class="card-body pt-0">'+
-                                            '<div class="row">'+
-                                                '<div class="col-7">'+
-                                                    '<h2 class="lead"><b>Pemilik ' + element.nama + '</b></h2>'+
-                                                    '<p class="text-muted text-sm"><b>Jenis Usaha. </b>' + element.usaha.kategori.kategori + '</p>'+
-                                                    '<ul class="ml-4 mb-0 fa-ul text-muted">'+
-                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Alamat. '+ element.usaha.alamat +'</li>'+
-                                                        '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone. ' +element.kontak+ '</li>'+
-                                                    '</ul>'+
-                                                '</div>'+
-                                                '<div class="col-5 text-center">'+
-                                                    '<img src="'+ helperServices.url + '/public/img/foto/' + element.usaha.gambar + '" alt="user-avatar" style="width:100%" class="img-fluid">'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>'+
+            const contentString =
+                '<div class="col-md-12">' +
+                '<div class="card-body pb-0">' +
+                '<div class="row d-flex align-items-stretch">' +
+                '<div class="col-12 d-flex align-items-stretch">' +
+                '<div class="card">' +
+                '<div class="card-header text-muted border-bottom-0">' +
+                element.usaha.nama +
+                '</div>' +
+                '<div class="card-body pt-0">' +
+                '<div class="row">' +
+                '<div class="col-7">' +
+                '<h2 class="lead"><b>Pemilik ' + element.nama + '</b></h2>' +
+                '<p class="text-muted text-sm"><b>Jenis Usaha. </b>' + element.usaha.kategori.kategori + '</p>' +
+                '<ul class="ml-4 mb-0 fa-ul text-muted">' +
+                '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Alamat. ' + element.usaha.alamat + '</li>' +
+                '<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone. ' + element.kontak + '</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="col-5 text-center">' +
+                '<img src="' + helperServices.url + '/public/img/foto/' + element.usaha.gambar + '" alt="user-avatar" style="width:100%" class="img-fluid">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
                 '</div>';
-              googleMap.setMarker(pos, element.nama, helperServices.url+'/public/img/marker/'+element.usaha.kategori.marker+'.png', null, contentString, element.usaha.kategori.kategori,element.usaha.kategori.marker);
+            googleMap.setMarker(pos, element.nama, helperServices.url + '/public/img/marker/' + element.usaha.kategori.marker + '.png', null, contentString, element.usaha.kategori.kategori, element.usaha.kategori.marker);
         });
         var infoWindow = new google.maps.InfoWindow;
         googleMap.setCurrentPosition();
@@ -224,6 +233,7 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
     $scope.datas = [];
     $scope.model = {};
     $scope.distrik = helperServices.distrik;
+    $scope.detaildistrik = helperServices.detaildistrik;
     $scope.model.usaha = {};
     $scope.kategoris = [];
     $scope.simpan = true;
@@ -234,7 +244,7 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
         WajibPajakServices.getDetail(helperServices.getParam()).then(x => {
             $scope.model = x;
             $scope.model.usaha.jumlahpegawai = parseInt($scope.model.usaha.jumlahpegawai);
-            $scope.model.usaha.distrik = $scope.distrik.find(itemdistrik=>itemdistrik == $scope.model.usaha.distrik);
+            $scope.model.usaha.distrik = $scope.distrik.find(itemdistrik => itemdistrik == $scope.model.usaha.distrik);
             $scope.simpan = false;
             console.log($scope.model.usaha);
         })
@@ -243,23 +253,40 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
         location.href = helperServices.url + "/wajibpajak/content/" + item.id;
     }
     $scope.save = () => {
+        $.LoadingOverlay("show");
         if ($scope.model.id) {
             WajibPajakServices.put($scope.model).then(result => {
+                $.LoadingOverlay("hide");
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Proses Berhasil'
+                    title: 'Information!',
+                    text: "Proses Berhasil",
+                    icon: 'info',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result) {
+                        location.href = helperServices.url + "/wajibpajak";
+                    }
                 })
-                location.href = helperServices.url + "/wajibpajak";
             })
         } else {
             WajibPajakServices.post($scope.model).then(result => {
+                $.LoadingOverlay("hide");
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Proses Berhasil'
+                    title: 'Information!',
+                    text: "Proses Berhasil",
+                    icon: 'info',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result) {
+                        location.href = helperServices.url + "/wajibpajak";
+                    }
                 })
-                location.href = helperServices.url + "/wajibpajak";
             })
         }
     }
@@ -286,7 +313,7 @@ function contentWajibPajakController($scope, helperServices, WajibPajakServices,
             $("#modal-map").modal('hide');
         })
     }
-    $scope.logFile= (item)=>{
+    $scope.logFile = (item) => {
         console.log(item);
     }
 }
@@ -342,7 +369,7 @@ function laporanController($scope, LaporanServices) {
         $scope.itemHeader = { title: "Laporan Tempat Usaha", breadcrumb: "Laporan", header: "Laporan" };
         $scope.$emit("SendUp", $scope.itemHeader);
         $.LoadingOverlay("hide");
-    }else{
+    } else {
         $scope.itemHeader = { title: "Laporan Rekapitulasi", breadcrumb: "Laporan", header: "Laporan" };
         $scope.$emit("SendUp", $scope.itemHeader);
         $.LoadingOverlay("hide");
